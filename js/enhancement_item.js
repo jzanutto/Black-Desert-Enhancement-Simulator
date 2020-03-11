@@ -105,14 +105,6 @@ var baseRateAcc = [
   0.005
 ];
 
-// var successSCAcc = [
-//   0.7,
-//   0.5,
-//   0.405,
-//   0.3,
-//   0.9
-// ];
-
 var softCapFailStackAcc = [
   18,
   40,
