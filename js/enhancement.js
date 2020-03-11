@@ -268,7 +268,12 @@ function transitionItem(img) {
 }
 
 function prependEnhancementRank(obj, slotNum, weaponId) {
-  switch (obj[weaponId].enhanceRank)
+  var enhancementTier = obj[weaponId].enhanceRank;
+  var itemType = getItemType(obj[weaponId].itemClass);
+  if (itemType === "accessory") {
+    enhancementTier = obj[weaponId].enhanceRank + 15;
+  }
+  switch (enhancementTier)
   {
     case (16):
       $(slotNum).prepend('<div id="enhancement_rank">I</div>');
@@ -291,8 +296,8 @@ function prependEnhancementRank(obj, slotNum, weaponId) {
       $('#temp_container').prepend('<div id="temp_enhancement_rank">V</div>');
       break;
     default:
-      $(slotNum).prepend('<div id="enhancement_rank">+' + obj[weaponId].enhanceRank + '</div>');
-      $('#temp_container').prepend('<div id="temp_enhancement_rank">+' + obj[weaponId].enhanceRank + '</div>');
+      $(slotNum).prepend('<div id="enhancement_rank">+' + enhancementTier + '</div>');
+      $('#temp_container').prepend('<div id="temp_enhancement_rank">+' + enhancementTier + '</div>');
       break;
   }
 }

@@ -69,7 +69,7 @@ function enhancementFailure(obj, weaponId, slotNum, existingDiv) {
     removeAcc(weaponId);
     failStackCount++;
     $('#counter').text('+' + failStackCount);
-    $('#percent_odds').text((getFailstackPercentage(obj[weaponId].enhanceRank, itemType) * 100).toFixed(2) + "%");
+    $('#percent_odds').text("0.00%");
   }
   else
   {

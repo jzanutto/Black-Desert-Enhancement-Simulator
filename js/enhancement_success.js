@@ -10,6 +10,7 @@ function playEnhancementSuccessSound() {
 function enhancementSuccess(obj, weaponId, slotNum, existingDiv) {
   playEnhancementSuccessSound();
   obj[weaponId].enhanceRank++;
+  var itemType = getItemType(obj[weaponId].itemClass);
 
   if (obj[weaponId].enhanceRank === 15) {
     obj[weaponId].blackStoneWeaponTotalSuccess = obj[weaponId].enhancementSuccessCount + 1;
@@ -21,7 +22,10 @@ function enhancementSuccess(obj, weaponId, slotNum, existingDiv) {
     obj[weaponId].totalEnhancementAttempts++;
   }
 
-  if (obj[weaponId].enhanceRank > 7) {
+  if (obj[weaponId].enhanceRank > 7 && itemType === "weapon") {
+    failStackCount = 0;
+  }
+  if (itemType === "accessory") {
     failStackCount = 0;
   }
 
@@ -39,6 +43,6 @@ function enhancementSuccess(obj, weaponId, slotNum, existingDiv) {
   prependEnhancementRank(obj, slotNum, weaponId);
 
   $('#counter').text('+' + failStackCount);
-  var itemClass = obj[weaponId].itemClass;
-  $('#percent_odds').text((getFailstackPercentage(obj[weaponId].enhanceRank, getItemType(itemClass)) * 100).toFixed(2) + "%");
+
+  $('#percent_odds').text((getFailstackPercentage(obj[weaponId].enhanceRank, itemType) * 100).toFixed(2) + "%");
 }
