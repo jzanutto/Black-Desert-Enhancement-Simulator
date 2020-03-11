@@ -59,6 +59,8 @@ function transitionItem(img) {
 
   $('#' + img.id).css('opacity', 0.2);
   selectedItemSlot = weaponId;
+  var itemType = getItemType(obj[weaponId].itemClass);
+  $('#percent_odds').text((getFailstackPercentage(obj[weaponId].enhanceRank, itemType) * 100).toFixed(2) + "%");
 
   //checks if there is an existing item in enhancement window
   //if so, remove it

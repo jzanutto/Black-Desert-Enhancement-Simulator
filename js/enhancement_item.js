@@ -54,7 +54,6 @@ var failStackRateSCWeapon = [
   0,
   0,
   0,
-  0,
   0.014,
   0.0041,
   0.0029,
