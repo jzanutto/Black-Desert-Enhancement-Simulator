@@ -331,6 +331,20 @@ body {
 	color: white;
 	z-index: 10;
 	margin: auto;
+	text-shadow: 1px 1px 3px black;
+
+}
+
+#advice_of_valks {
+	text-align: center;
+	display: inline-block;
+	position: absolute;
+	color: white;
+	z-index: 10;
+	margin: auto;
+	text-shadow: 1px 1px 2px black;
+	padding-bottom: -30px;
+	margin-bottom: -10px;
 }
 
 #back_arrow {
@@ -339,9 +353,8 @@ body {
 	position: relative;
 	width: 20px;
 	color: white;
-	background-color: black;
-	color: white;
 	outline: 0;
+	text-shadow: 1px 1px 2px black;
 }
 
 #back_arrow:active {
@@ -352,7 +365,7 @@ body {
 #character_window p {
 	display: inline-block;
 	z-index: 9;
-	background-color: black;
+	text-shadow: 1px 1px 2px black;
 }
 
 #forward_arrow {
@@ -361,8 +374,7 @@ body {
 	position: relative;
 	color: white;
 	width: 20px;
-	background-color: black;
-	color: white;
+	text-shadow: 1px 1px 2px black;
 	outline: 0;
 }
 
@@ -548,6 +560,10 @@ body {
 #inventory_window::-webkit-scrollbar {
 	height:7px;
 	width: 5px;
+}
+
+.text_shadow {
+	text-shadow: 1px 1px 2px black;
 }
 
 #inventory_window::-webkit-scrollbar-thumb {
