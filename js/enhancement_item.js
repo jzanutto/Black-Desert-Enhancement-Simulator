@@ -1,286 +1,218 @@
 //base enhancement rates
-var enhancementRate = {
-  eight: 0.2,
-  nine: 0.175,
-  ten: 0.15,
-  eleven: 0.125,
-  twelve: 0.1,
-  thirteen: 0.075,
-  fourteen: 0.05,
-  fifteen: 0.025,
-  sixteen: 0.15,
-  seventeen: 0.075,
-  eighteen: 0.05,
-  nineteen: 0.02,
-  twenty: 0.015
-}
-
-//max number of failStacks you can possibly have to
-//increase odds
-var failStackLimit = {
-  eight: 13,
-  nine: 14,
-  ten: 15,
-  eleven: 16,
-  twelve: 18,
-  thirteen: 20,
-  fourteen: 25,
-  fifteen: 25,
-  sixteen: 25,
-  seventeen: 35,
-  eighteen: 44,
-  nineteen: 90,
-  twenty: 124
-}
+var baseRateWeapon = [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0.7,
+  0.2041,
+  0.1429,
+  0.10,
+  0.0667,
+  0.04,
+  0.025,
+  0.02,
+  0.1176,
+  0.0769,
+  0.0625,
+  0.02,
+  0.003
+];
 
 //enhancement rates for each rank
-var failStackRate = {
-  eight: 0.025,
-  nine: 0.02,
-  ten: 0.015,
-  eleven: 0.0125,
-  twelve: 0.0075,
-  thirteen: 0.063,
-  fourteen: 0.005,
-  fifteen: 0.005,
-  sixteen: 0.015,
-  seventeen: 0.0075,
-  eighteen: 0.005,
-  nineteen: 0.0025,
-  twenty: 0.0025
-};
+var failStackRateWeapon = [
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  0,
+  0.0204,
+  0.0142,
+  0.01,
+  0.0067,
+  0.004,
+  0.0025,
+  0.002,
+  0.0117,
+  0.0077,
+  0.0063,
+  0.002,
+  0.0003
+];
 
-function getFailstackPercentage(enhanceRank) {
-  switch (enhanceRank) {
-    case (7):
-      return failStackCount <= failStackLimit.eight
-          ? failStackCount * failStackRate.eight
-          : failStackLimit.eight * failStackRate.eight;
+var failStackRateSCWeapon = [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0.014,
+  0.0041,
+  0.0029,
+  0.002,
+  0.0013,
+  0.004,
+  0.0025,
+  0.002,
+  0.0023,
+  0.0016,
+  0.0012,
+  0.002,
+  0.0003
+];
 
-    case (8):
-      return failStackCount <= failStackLimit.nine
-          ? failStackCount * failStackRate.nine
-          : failStackLimit.nine * failStackRate.nine;
+var softCapFailStackWeapon  = [
+  Infinity,
+  Infinity,
+  Infinity,
+  Infinity,
+  Infinity,
+  Infinity,
+  Infinity,
+  0,
+  25,
+  43,
+  60,
+  95,
+  Infinity,
+  Infinity,
+  Infinity,
+  52,
+  82,
+  102,
+  Infinity,
+  Infinity
+];
 
-    case (9):
-      return failStackCount <= failStackLimit.ten
-          ? failStackCount * failStackRate.ten
-          : failStackLimit.ten * failStackRate.ten;
+var enhancementSoftCapNonAcc = 0.7;
 
-    case (10):
-      return failStackCount <= failStackLimit.eleven
-          ? failStackCount * failStackRate.eleven
-          : failStackLimit.eleven * failStackRate.eleven;
+var enhancementHardcap = 0.9;
 
-    case (11):
-      return failStackCount <= failStackLimit.twelve
-          ? failStackCount * failStackRate.twelve
-          : failStackLimit.twelve * failStackRate.twelve;
+var baseRateAcc = [
+  0.25,
+  0.1,
+  0.075,
+  0.025,
+  0.005
+];
 
-    case (12):
-      return failStackCount <= failStackLimit.thirteen
-          ? failStackCount * failStackRate.thirteen
-          : failStackLimit.thirteen * failStackRate.thirteen;
+// var successSCAcc = [
+//   0.7,
+//   0.5,
+//   0.405,
+//   0.3,
+//   0.9
+// ];
 
-    case (13):
-      return failStackCount <= failStackLimit.fourteen
-          ? failStackCount * failStackRate.fourteen
-          : failStackLimit.fourteen * failStackRate.fourteen;
+var softCapFailStackAcc = [
+  18,
+  40,
+  44,
+  110,
+  Infinity
+];
 
-    case (14):
-      return failStackCount <= failStackLimit.fifteen
-          ? failStackCount * failStackRate.fifteen
-          : failStackLimit.fifteen * failStackRate.fifteen;
+var failStackRateAcc = [
+  0.025,
+  0.01,
+  0.0075,
+  0.0025,
+  0.0005
+];
 
-    case (15):
-      return failStackCount <= failStackLimit.sixteen
-          ? failStackCount * failStackRate.sixteen
-          : failStackLimit.sixteen * failStackRate.sixteen;
+var failStackRateSCAcc = [
+  0.005,
+  0.002,
+  0.0015,
+  0.0005,
+  0.0005
+];
 
-    case (16):
-      return failStackCount <= failStackLimit.seventeen
-          ? failStackCount * failStackRate.seventeen
-          : failStackLimit.seventeen * failStackRate.seventeen;
 
-    case (17):
-      return failStackCount <= failStackLimit.eighteen
-          ? failStackCount * failStackRate.eighteen
-          : failStackLimit.eighteen * failStackRate.eighteen;
 
-    case (18):
-      return failStackCount <= failStackLimit.nineteen
-          ? failStackCount * failStackRate.nineteen
-          : failStackLimit.nineteen * failStackRate.nineteen;
+function getFailstackPercentage(enhanceRank, itemType) {
+  var successChance = 0;
+  if (itemType === "weapon") {
+    if (failStackCount > softCapFailStackWeapon[enhanceRank]) {
+      var postSCFailStack = failStackCount - softCapFailStackWeapon[enhanceRank];
+      successChance = baseRateWeapon[enhanceRank] + (failStackRateWeapon[enhanceRank] * softCapFailStackWeapon[enhanceRank]) + (failStackRateSCWeapon[enhanceRank] * postSCFailStack);
+    } else {
+      successChance = baseRateWeapon[enhanceRank] + (failStackRateWeapon[enhanceRank] * failStackCount);
+    }
+    if (enhanceRank < 7) {
+      return 1;
+    }
+     else if (successChance > enhancementHardcap) {
+      return enhancementHardcap;
+    }
+  } else if (itemType === "armor") {
 
-    case (19):
-      return failStackCount <= failStackLimit.twenty
-          ? failStackCount * failStackRate.twenty
-          : failStackLimit.twenty * failStackRate.twenty;
-
-    default:
-      return 0;
+  } else {
+    // acc
+    if (failStackCount > softCapFailStackAcc[enhanceRank]) {
+      var postSCFailStack = failStackCount - softCapFailStackAcc[enhanceRank];
+      successChance = baseRateAcc[enhanceRank] + (failStackRateAcc[enhanceRank] * softCapFailStackAcc[enhanceRank]) + (failStackRateSCAcc[enhanceRank] * postSCFailStack);
+    } else {
+      successChance = baseRateAcc[enhanceRank] + (failStackRateAcc[enhanceRank] * failStackCount);
+    }
+    if (successChance > enhancementHardcap) {
+      return enhancementHardcap;
+    }
   }
+  return successChance;
+}
+
+function getItemType(localItemClass) {
+  var itemType = "weapon";
+  if (localItemClass === "dandelion" || localItemClass === "kzarka" || localItemClass === "liverto") {
+    itemType = "weapon";
+  } else if (localItemClass === "top_tier") {
+    itemType = "accessory";
+  } else {
+    itemType = "armor";
+  }
+  return itemType;
 }
 
 function enhanceItem(obj, weaponId, slotNum, randomNum, existingDiv) {
-  if (obj[weaponId].enhanceRank >= 20)
+  var itemType = getItemType(obj[weaponId].itemClass);
+
+  if (obj[weaponId].enhanceRank >= 20 || (itemType === "accessory" && obj[weaponId].enhanceRank >= 5))
   {
     return;
   }
+  enhanceRank = obj[weaponId].enhanceRank;
 
-  var accessoryStartRank = 14;
-  var enhanceRank = (obj[weaponId].itemClass === "top_tier" && obj[weaponId].enhanceRank === 0)
-                   ? accessoryStartRank
-                   : obj[weaponId].enhanceRank;
-  var failStackPercentage = getFailstackPercentage(enhanceRank);
-  var enhanceChance = randomNum - failStackPercentage;
 
-  if (obj[weaponId].itemClass === "liverto") {
-    var temp;
-    enhanceChance -= failStackPercentage;
-    temp = Math.abs(enhanceChance) * 0.3;
-    enhanceChance += temp;
-  }
-  else {
-    var temp;
-    enhanceChance -= failStackPercentage;
-    temp = Math.abs(enhanceChance) * 0.4;
-    enhanceChance += temp;
-  }
-
-  switch (enhanceRank)
-  {
-    case (7):
-      if (enhanceChance <= enhancementRate.eight) {
-        enhancementSuccess(obj, weaponId, slotNum, existingDiv);
+  var failStackPercentage = getFailstackPercentage(enhanceRank, itemType);
+  var success = randomNum < failStackPercentage;
+  if (itemType === "weapon") {
+    if (obj[weaponId].enhanceRank === 15) {
+      if ($('#black_stone_weapon_temp').length) {
+        $('#black_stone_weapon_temp').attr('src', "img/black_stone/concentrated_magical_black_stone_weapon.png");
       }
-      else {
-        enhancementFailure(obj, weaponId, slotNum, existingDiv);
-      }
-      break;
-
-    case (8):
-      if (enhanceChance <= enhancementRate.nine) {
-        enhancementSuccess(obj, weaponId, slotNum, existingDiv);
-      }
-      else {
-        enhancementFailure(obj, weaponId, slotNum, existingDiv);
-      }
-      break;
-
-    case (9):
-      if (enhanceChance <= enhancementRate.ten) {
-        enhancementSuccess(obj, weaponId, slotNum, existingDiv);
-      }
-      else {
-        enhancementFailure(obj, weaponId, slotNum, existingDiv);
-      }
-      break;
-
-    case (10):
-      if (enhanceChance <= enhancementRate.eleven) {
-        enhancementSuccess(obj, weaponId, slotNum, existingDiv);
-      }
-      else {
-        enhancementFailure(obj, weaponId, slotNum, existingDiv);
-      }
-      break;
-
-    case (11):
-      if (enhanceChance <= enhancementRate.twelve) {
-        enhancementSuccess(obj, weaponId, slotNum, existingDiv);
-      }
-      else {
-        enhancementFailure(obj, weaponId, slotNum, existingDiv);
-      }
-      break;
-
-    case (12):
-      if (enhanceChance <= enhancementRate.thirteen) {
-        enhancementSuccess(obj, weaponId, slotNum, existingDiv);
-      }
-      else {
-        enhancementFailure(obj, weaponId, slotNum, existingDiv);
-      }
-      break;
-
-    case (13):
-      if (enhanceChance <= enhancementRate.fourteen) {
-        enhancementSuccess(obj, weaponId, slotNum, existingDiv);
-      }
-      else {
-        enhancementFailure(obj, weaponId, slotNum, existingDiv);
-      }
-      break;
-
-    case (14):
-      if (enhanceChance <= enhancementRate.fifteen) {
-        enhancementSuccess(obj, weaponId, slotNum, existingDiv);
-
-        if ($('#black_stone_weapon_temp').length) {
-          $('#black_stone_weapon_temp').attr('src', "img/black_stone/concentrated_magical_black_stone_weapon.png");
-        }
-
-        if (obj[weaponId].itemClass !== "top_tier")
-        {
-          obj[weaponId].blackStoneWeaponTotalSuccess = obj[weaponId].enhancementSuccessCount;
-          obj[weaponId].blackStoneWeaponTotalFailure = obj[weaponId].enhancementFailCount;
-          obj[weaponId].enhancementSuccessCount = 0;
-          obj[weaponId].enhancementFailCount = 0;
-        }
-      }
-      else {
-        enhancementFailure(obj, weaponId, slotNum, existingDiv);
-      }
-      break;
-
-    case (15):
-      if (enhanceChance <= enhancementRate.sixteen) {
-        enhancementSuccess(obj, weaponId, slotNum, existingDiv);
-      }
-      else {
-        enhancementFailure(obj, weaponId, slotNum, existingDiv);
-      }
-      break;
-
-    case (16):
-      if (enhanceChance <= enhancementRate.seventeen) {
-        enhancementSuccess(obj, weaponId, slotNum, existingDiv);
-      }
-      else {
-        enhancementFailure(obj, weaponId, slotNum, existingDiv);
-      }
-      break;
-
-    case (17):
-      if (enhanceChance <= enhancementRate.eighteen) {
-        enhancementSuccess(obj, weaponId, slotNum, existingDiv);
-      }
-      else {
-        enhancementFailure(obj, weaponId, slotNum, existingDiv);
-      }
-      break;
-
-    case (18):
-      if (enhanceChance <= enhancementRate.nineteen) {
-        enhancementSuccess(obj, weaponId, slotNum, existingDiv);
-      }
-      else {
-        enhancementFailure(obj, weaponId, slotNum, existingDiv);
-      }
-      break;
-
-    case (19):
-      if (enhanceChance <= enhancementRate.twenty) {
-        enhancementSuccess(obj, weaponId, slotNum, existingDiv);
-      }
-      else {
-        enhancementFailure(obj, weaponId, slotNum, existingDiv);
-      }
-      break;
-
-    default:
+    }
+    if (success) {
       enhancementSuccess(obj, weaponId, slotNum, existingDiv);
-      break;
+    } else {
+      enhancementFailure(obj, weaponId, slotNum, existingDiv);
+    }
+
+  } else if (itemType === "armor") {
+
+  } else {
+    success ?
+      enhancementSuccess(obj, weaponId, slotNum, existingDiv) :
+      enhancementFailure(obj, weaponId, slotNum, existingDiv);
+
   }
 }

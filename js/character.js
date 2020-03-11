@@ -52,3 +52,15 @@ $("#forward_arrow").on("click", function(){
   }
   $('#counter').text('+' + failStackCount);
 });
+
+$("#manual_fs").on("submit", function() {
+  var manualStack = $("#manual_value")[0].value;
+  console.log(manualStack);
+  failStackCount = manualStack;
+  $('#counter').text('+' + failStackCount);
+  if (selectedItemSlot >= 0) {
+    var itemType = getItemType(obj[selectedItemSlot].itemClass);
+    $('#percent_odds').text((getFailstackPercentage(obj[selectedItemSlot].enhanceRank, itemType) * 100).toFixed(2) + "%");
+  }
+  return false;
+});

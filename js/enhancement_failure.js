@@ -63,12 +63,13 @@ function removeAcc(weaponId) {
 
 function enhancementFailure(obj, weaponId, slotNum, existingDiv) {
   playEnhancementFailureSound();
-
-  if (obj[weaponId].itemClass === "top_tier")
+  var itemType = getItemType(obj[weaponId].itemClass);
+  if (itemType === "accessory")
   {
     removeAcc(weaponId);
     failStackCount++;
     $('#counter').text('+' + failStackCount);
+    $('#percent_odds').text((getFailstackPercentage(obj[weaponId].enhanceRank, itemType) * 100).toFixed(2) + "%");
   }
   else
   {
@@ -107,5 +108,6 @@ function enhancementFailure(obj, weaponId, slotNum, existingDiv) {
       failStackCount++;
     }
     $('#counter').text('+' + failStackCount);
+    $('#percent_odds').text((getFailstackPercentage(obj[weaponId].enhanceRank, itemType) * 100).toFixed(2) + "%");
   }
 }

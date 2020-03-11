@@ -375,11 +375,11 @@ body {
 	vertical-align: top;
 	display: inline-block;
 	position: relative;
-	margin-top: 290px;
+	margin-top: 310px;
 
 	border: 2px;
 	border-radius: 6px;
-	height: 270px;
+	height: 290px;
 	width: 500px;
 	background-color: black;
 	z-index: 1;
@@ -399,6 +399,11 @@ body {
 }
 
 #counter {
+	color: #4dff4d;
+	font-family: Arial;
+}
+
+#percent_odds {
 	color: #4dff4d;
 	font-family: Arial;
 }
