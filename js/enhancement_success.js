@@ -28,6 +28,9 @@ function enhancementSuccess(obj, weaponId, slotNum, existingDiv) {
   if (itemType === "accessory") {
     failStackCount = 0;
   }
+  if (obj[weaponId].enhanceRank > 5 && itemType === "armor") {
+    failStackCount = 0;
+  }
 
   if(existingDiv.attr('id') === "enhancement_rank")
   {

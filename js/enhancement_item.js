@@ -22,6 +22,37 @@ var baseRateWeapon = [
   0.003
 ];
 
+var baseRateAcc = [
+  0.25,
+  0.1,
+  0.075,
+  0.025,
+  0.005
+];
+
+var baseRateArmor = [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0.7,
+  0.2564,
+  0.1724,
+  0.1176,
+  0.0769,
+  0.0625,
+  0.05,
+  0.04,
+  0.0286,
+  0.02,
+  0.1176,
+  0.0769,
+  0.0625,
+  0.02,
+  0.003
+];
+
 //enhancement rates for each rank
 var failStackRateWeapon = [
   1,
@@ -85,30 +116,10 @@ var softCapFailStackWeapon  = [
   Infinity,
   Infinity,
   Infinity,
-  52,
+  50,
   82,
   102,
   Infinity,
-  Infinity
-];
-
-var enhancementSoftCapNonAcc = 0.7;
-
-var enhancementHardcap = 0.9;
-
-var baseRateAcc = [
-  0.25,
-  0.1,
-  0.075,
-  0.025,
-  0.005
-];
-
-var softCapFailStackAcc = [
-  18,
-  40,
-  44,
-  110,
   Infinity
 ];
 
@@ -128,7 +139,86 @@ var failStackRateSCAcc = [
   0.0005
 ];
 
+var softCapFailStackAcc = [
+  18,
+  40,
+  44,
+  110,
+  Infinity
+];
 
+var failStackRateArmor = [
+  1,
+  1,
+  1,
+  1,
+  1,
+  0,
+  0.0257,
+  0.0173,
+  0.0118,
+  0.0077,
+  0.0063,
+  0.005,
+  0.004,
+  0.0029,
+  0.002,
+  0.0118,
+  0.0077,
+  0.0063,
+  0.002,
+  0.0003
+];
+
+var failStackRateSCArmor = [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0.014,
+  0.0052,
+  0.0034,
+  0.0023,
+  0.0015,
+  0.0012,
+  0.005,
+  0.004,
+  0.0029,
+  0.002,
+  0.0023,
+  0.0016,
+  0.0012,
+  0.002,
+  0.0003
+];
+
+softCapFailStackArmor = [
+  Infinity,
+  Infinity,
+  Infinity,
+  Infinity,
+  Infinity,
+  0,
+  18,
+  31,
+  50,
+  82,
+  102,
+  Infinity,
+  Infinity,
+  Infinity,
+  Infinity,
+  50,
+  82,
+  102,
+  Infinity,
+  Infinity
+];
+
+var enhancementSoftCapNonAcc = 0.7;
+
+var enhancementHardcap = 0.9;
 
 function getFailstackPercentage(enhanceRank, itemType) {
   var successChance = 0;
@@ -141,12 +231,21 @@ function getFailstackPercentage(enhanceRank, itemType) {
     }
     if (enhanceRank < 7) {
       return 1;
-    }
-     else if (successChance > enhancementHardcap) {
+    } else if (successChance > enhancementHardcap) {
       return enhancementHardcap;
     }
   } else if (itemType === "armor") {
-
+    if (failStackCount > softCapFailStackArmor[enhanceRank]) {
+      var postSCFailStack = failStackCount - softCapFailStackArmor[enhanceRank];
+      successChance = baseRateArmor[enhanceRank] + (failStackRateArmor[enhanceRank] * softCapFailStackArmor[enhanceRank]) + (failStackRateSCArmor[enhanceRank] * postSCFailStack);
+    } else {
+      successChance = baseRateArmor[enhanceRank] + (failStackRateArmor[enhanceRank] * failStackCount);
+    }
+    if (enhanceRank < 5) {
+      return 1;
+    } else if (successChance > enhancementHardcap) {
+      return enhancementHardcap;
+    }
   } else {
     // acc
     if (failStackCount > softCapFailStackAcc[enhanceRank]) {
@@ -199,7 +298,16 @@ function enhanceItem(obj, weaponId, slotNum, randomNum, existingDiv) {
     }
 
   } else if (itemType === "armor") {
-
+    if (obj[weaponId].enhanceRank === 15) {
+      if ($('#black_stone_armor_temp').length) {
+        $('#black_stone_armor_temp').attr('src', "img/black_stone/concentrated_magical_black_stone_armor.png");
+      }
+    }
+    if (success) {
+      enhancementSuccess(obj, weaponId, slotNum, existingDiv);
+    } else {
+      enhancementFailure(obj, weaponId, slotNum, existingDiv);
+    }
   } else {
     success ?
       enhancementSuccess(obj, weaponId, slotNum, existingDiv) :
