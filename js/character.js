@@ -55,8 +55,7 @@ $("#forward_arrow").on("click", function(){
 
 $("#manual_fs").on("submit", function() {
   var manualStack = $("#manual_value")[0].value;
-  console.log(manualStack);
-  failStackCount = manualStack;
+  failStackCount = parseInt(manualStack);
   $('#counter').text('+' + failStackCount);
   if (selectedItemSlot >= 0) {
     var itemType = getItemType(obj[selectedItemSlot].itemClass);
