@@ -19,15 +19,13 @@ The site uses 'Marcellus' as a font so browser font may differ from screenshot.
 # Changelog
 [See page here.](https://github.com/kodycode/Black-Desert-Enhancement-Simulator/wiki/Changelog)
 
-Enhancement tables provided by https://saarith.com/weapon-armor-enhancement-tables/
-
 ## Credits:
+
+https://saarith.com/weapon-armor-enhancement-tables/ - Enhancement Tables
 
 https://github.com/davidbau/seedrandom - ARC4-based PRNG
 
 http://black.game.daum.net/black/pds/fansitekit/index.daum - Wallpaper
-
-http://www.inven.co.kr/board/powerbbs.php?come_idx=3584&name=subject&keyword=%B0%AD%C8%AD&l=19419 - Weapon Enhancement Data
 
 http://bddatabase.net/us/ - Images and Data
 
@@ -35,4 +33,4 @@ http://bdoplanner.com/
 
 
 ## Donations:
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XVWUDA7TZH2SU)
+<!-- [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)]) -->
