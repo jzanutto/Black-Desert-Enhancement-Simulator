@@ -1,6 +1,6 @@
 $("#back_arrow").hide();
 var characterSlot = 1;
-var maxCharacterSlots = 12;
+var maxCharacterSlots = 19;
 var failStackInstance = [];
 
 
@@ -22,6 +22,7 @@ $("#back_arrow").on("click", function(){
 
   failStackCount = failStackInstance[characterSlot];
   $('#counter').text('+' + failStackCount);
+  setOdds(selectedItemSlot, obj);
 });
 
 $("#forward_arrow").on("click", function(){
@@ -51,15 +52,20 @@ $("#forward_arrow").on("click", function(){
     failStackCount = failStackInstance[characterSlot];
   }
   $('#counter').text('+' + failStackCount);
+  setOdds(selectedItemSlot, obj);
 });
 
 $("#manual_fs").on("submit", function() {
   var manualStack = $("#manual_value")[0].value;
   failStackCount = parseInt(manualStack);
   $('#counter').text('+' + failStackCount);
+  setOdds(selectedItemSlot, obj);
+  return false;
+});
+
+function setOdds(selectedItemSlot, obj) {
   if (selectedItemSlot >= 0) {
     var itemType = getItemType(obj[selectedItemSlot].itemClass);
     $('#percent_odds').text((getFailstackPercentage(obj[selectedItemSlot].enhanceRank, itemType) * 100).toFixed(2) + "%");
   }
-  return false;
-});
+}
