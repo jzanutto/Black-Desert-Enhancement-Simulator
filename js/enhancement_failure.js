@@ -82,24 +82,28 @@ function enhancementFailure(obj, weaponId, slotNum, existingDiv) {
     }
     else if (obj[weaponId].enhanceRank === 16)
     {
+      obj[weaponId].duoFails++;
       derankEnhancement(obj, weaponId, slotNum, existingDiv);
       failStackCount += 3;
     }
     else if (obj[weaponId].enhanceRank === 17)
     {
       obj[weaponId].enhanceRank--;
+      obj[weaponId].triFails++;
       derankEnhancement(obj, weaponId, slotNum, existingDiv);
       failStackCount += 4;
     }
     else if (obj[weaponId].enhanceRank === 18)
     {
       obj[weaponId].enhanceRank--;
+      obj[weaponId].tetFails++;
       derankEnhancement(obj, weaponId, slotNum, existingDiv);
       failStackCount += 5;
     }
     else if (obj[weaponId].enhanceRank === 19)
     {
       obj[weaponId].enhanceRank--;
+      obj[weaponId].penFails++;
       derankEnhancement(obj, weaponId, slotNum, existingDiv);
       failStackCount += 6;
     }
@@ -108,6 +112,7 @@ function enhancementFailure(obj, weaponId, slotNum, existingDiv) {
       failStackCount++;
     }
     $('#counter').text('+' + failStackCount);
+    $('#character_class_' + characterSlot).parent().children('div').text(failStackCount);
     $('#percent_odds').text((getFailstackPercentage(obj[weaponId].enhanceRank, itemType) * 100).toFixed(2) + "%");
   }
 }

@@ -233,6 +233,8 @@ function getFailstackPercentage(enhanceRank, itemType) {
       return 1;
     } else if (successChance > enhancementHardcap) {
       return enhancementHardcap;
+    } else if (enhanceRank === 20) {
+      return 0;
     }
   } else if (itemType === "armor") {
     if (failStackCount > softCapFailStackArmor[enhanceRank]) {
@@ -245,6 +247,8 @@ function getFailstackPercentage(enhanceRank, itemType) {
       return 1;
     } else if (successChance > enhancementHardcap) {
       return enhancementHardcap;
+    } else if (enhanceRank === 20) {
+      return 0;
     }
   } else {
     // acc
@@ -256,6 +260,8 @@ function getFailstackPercentage(enhanceRank, itemType) {
     }
     if (successChance > enhancementHardcap) {
       return enhancementHardcap;
+    } else if (enhanceRank === 5) {
+      return 0;
     }
   }
   return successChance;

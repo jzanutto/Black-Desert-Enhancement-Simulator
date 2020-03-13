@@ -19,6 +19,14 @@ function inventoryObject() {
   this.totalEnhancementAttempts = 0;
   this.blackStoneWeaponTotalSuccess = 0;
   this.blackStoneWeaponTotalFailure = 0;
+  this.duoFails = 0;
+  this.triFails = 0;
+  this.tetFails = 0;
+  this.penFails = 0;
+  this.duoSuccs = 0;
+  this.triSuccs = 0;
+  this.tetSuccs = 0;
+  this.penSuccs = 0;
   this.empty = true;
 }
 

@@ -29,30 +29,33 @@ function imgoverInventory(img, desc) {
   //black stone success/failure
   if (obj[weaponId].enhanceRank >= 15)
   {
+    var currentItem = obj[weaponId];
     var spanEnhancementSuccessCount = '<span class="enhancement_success_count"> </br>' +
-                                         ' Total Enhancement Success Count: ' + obj[weaponId].enhancementSuccessCount +
-                                         ' (Pre-15: ' + obj[weaponId].blackStoneWeaponTotalSuccess + ')' +
+                                         ' Total Enhancement Success Count: ' + currentItem.enhancementSuccessCount +
+                                         ' (Pre-15: ' + currentItem.blackStoneWeaponTotalSuccess + ')' + "</br>" +
+                                         ' (II: ' + + currentItem.duoSuccs+ ')' + ' (III: ' + currentItem.triSuccs+ ')' + ' (IV: ' + currentItem.tetSuccs+ ')' + ' (V: ' + currentItem.penSuccs+ ')' +
                                          '</span>';
 
     var spanEnhancementFailCount = '<span class="enhancement_fail_count"> </br>' +
-                                      ' Total Enhancement Fail Count: ' + obj[weaponId].enhancementFailCount +
-                                      ' (Pre-15: ' + obj[weaponId].blackStoneWeaponTotalFailure + ')' +
+                                      ' Total Enhancement Fail Count: ' + currentItem.enhancementFailCount +
+                                      ' (Pre-15: ' + currentItem.blackStoneWeaponTotalFailure + ')' + "</br>" +
+                                      ' (II: ' + currentItem.duoFails + ')' + ' (III: ' + currentItem.triFails + ')' + ' (IV: ' + currentItem.tetFails + ')' + ' (V: ' + currentItem.penFails + ')' +
                                       '</span>';
 
     var spanTotalEnhancementCount = '<span class="total_enhancement_attempts"> </br>' +
-                                       ' Total Enhancement Count: ' + obj[weaponId].totalEnhancementAttempts +
+                                       ' Total Enhancement Count: ' + currentItem.totalEnhancementAttempts +
                                        '</span>';
   }
   else
   {
     var spanEnhancementSuccessCount = '<span class="enhancement_success_count"> </br>' +
-                                         ' Total Enhancement Success Count: ' + obj[weaponId].enhancementSuccessCount +
+                                         ' Total Enhancement Success Count: ' + currentItem.enhancementSuccessCount +
                                          '</span>';
     var spanEnhancementFailCount = '<span class="enhancement_fail_count"> </br>' +
-                                      ' Total Enhancement Fail Count: ' + obj[weaponId].enhancementFailCount +
+                                      ' Total Enhancement Fail Count: ' + currentItem.enhancementFailCount +
                                       '</span>';
     var spanTotalEnhancementCount = '<span class="total_enhancement_attempts"> </br>' +
-                                       ' Total Enhancement Count: ' + obj[weaponId].totalEnhancementAttempts +
+                                       ' Total Enhancement Count: ' + currentItem.totalEnhancementAttempts +
                                        '</span>';
   }
 

@@ -32,6 +32,20 @@ function enhancementSuccess(obj, weaponId, slotNum, existingDiv) {
     failStackCount = 0;
   }
 
+  if (obj[weaponId].enhanceRank === 17) {
+    obj[weaponId].duoSuccs++;
+  }
+
+  if (obj[weaponId].enhanceRank === 18) {
+    obj[weaponId].triSuccs++;
+  }
+  if (obj[weaponId].enhanceRank === 19) {
+    obj[weaponId].tetSuccs++;
+  }
+  if (obj[weaponId].enhanceRank === 20) {
+    obj[weaponId].penSuccs++;
+  }
+
   if(existingDiv.attr('id') === "enhancement_rank")
   {
     existingDiv.remove();
@@ -46,6 +60,6 @@ function enhancementSuccess(obj, weaponId, slotNum, existingDiv) {
   prependEnhancementRank(obj, slotNum, weaponId);
 
   $('#counter').text('+' + failStackCount);
-
+  $('#character_class_' + characterSlot).parent().children('div').text(failStackCount);
   $('#percent_odds').text((getFailstackPercentage(obj[weaponId].enhanceRank, itemType) * 100).toFixed(2) + "%");
 }
