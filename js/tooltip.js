@@ -27,9 +27,9 @@ function imgoverInventory(img, desc) {
   //if weapon enhancement rank greater than 15, display new counts
   //for concentrated blackstones, and a separate count for regular
   //black stone success/failure
-  if (obj[weaponId].enhanceRank >= 15)
+  var currentItem = obj[weaponId];
+  if (currentItem.enhanceRank >= 15)
   {
-    var currentItem = obj[weaponId];
     var spanEnhancementSuccessCount = '<span class="enhancement_success_count"> </br>' +
                                          ' Total Enhancement Success Count: ' + currentItem.enhancementSuccessCount +
                                          ' (Pre-15: ' + currentItem.blackStoneWeaponTotalSuccess + ')' + "</br>" +
