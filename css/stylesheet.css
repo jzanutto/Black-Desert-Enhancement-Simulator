@@ -323,14 +323,17 @@ body {
 }
 
 #character_window {
-	height: 20px;
-	width: 500px;
-	text-align: center;
+	bottom: 291px;
+	margin-top: -10px;
+	margin-bottom: 80px;
+	padding-left: 6px;
+	padding-right: -10px;
+	width: 494px;
 	display: inline-block;
 	position: absolute;
+	background-color: black;
 	color: white;
 	z-index: 10;
-	margin: auto;
 	text-shadow: 1px 1px 3px black;
 
 }

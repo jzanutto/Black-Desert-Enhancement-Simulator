@@ -4,7 +4,7 @@ $(document).ready(function() {
   var inventoryLeft = $("#inventory_window").position().left;
   var inventoryHeight = $("#inventory_window").height();
 
-  document.getElementById('character_window').style.top = (inventoryHeight/3) + "px";
+  document.getElementById('character_window').style.top = (inventoryHeight/5) + "px";
 
   //disables context menu upon right click
   //and adds img to enhancement window

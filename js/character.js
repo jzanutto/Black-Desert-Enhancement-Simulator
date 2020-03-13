@@ -1,56 +1,23 @@
-$("#back_arrow").hide();
-var characterSlot = 1;
-var maxCharacterSlots = 19;
+var characterSlot = 0;
 var failStackInstance = [];
 
 
-$("#back_arrow").on("click", function(){
-  //checks if there is an existing item in enhancement window
+$("img[id^='character_class_']").on("click", function(img) {
+  // save the old failstack
+
   failStackInstance[characterSlot] = failStackCount;
-  characterSlot--;
-  $(this).parent().children('p').text('Character ' + characterSlot);
-
-  if (characterSlot <= maxCharacterSlots && characterSlot != 1)
-  {
-    $("#forward_arrow").show();
+  var currentChar = img.currentTarget.id.split("_")[2];
+  if (failStackInstance[currentChar] == null) {
+    failStackInstance[currentChar] = 0;
   }
 
-  if (characterSlot === 1)
-  {
-    $("#back_arrow").hide();
-  }
+  $("#character_class_" + characterSlot).parent().children('div').text(failStackInstance[characterSlot]);
+  $("#character_class_" + characterSlot).parent().css("border", "0px black");
 
+  $(this).parent().css("border", "1px solid gray" );
+
+  characterSlot = currentChar;
   failStackCount = failStackInstance[characterSlot];
-  $('#counter').text('+' + failStackCount);
-  setOdds(selectedItemSlot, obj);
-});
-
-$("#forward_arrow").on("click", function(){
-  failStackInstance[characterSlot] = failStackCount;
-  characterSlot++;
-  $("#back_arrow").show();
-  $(this).parent().children('p').text('Character ' + characterSlot);
-
-  if (characterSlot <= maxCharacterSlots && characterSlot != 1)
-  {
-    $("#forward_arrow").show();
-  }
-
-  if (characterSlot === maxCharacterSlots)
-  {
-    $("#forward_arrow").hide();
-  }
-
-  //save current inv count set next one to 0
-  if (failStackInstance[characterSlot] === undefined)
-  {
-    failStackInstance[characterSlot] = failStackCount;
-    failStackCount = 0;
-  }
-  else
-  {
-    failStackCount = failStackInstance[characterSlot];
-  }
   $('#counter').text('+' + failStackCount);
   setOdds(selectedItemSlot, obj);
 });
@@ -59,6 +26,8 @@ $("#manual_fs").on("submit", function() {
   var manualStack = $("#manual_value")[0].value;
   failStackCount = parseInt(manualStack);
   $('#counter').text('+' + failStackCount);
+
+  $("#character_class_" + characterSlot).parent().children('div').text(failStackCount);
   setOdds(selectedItemSlot, obj);
   return false;
 });
