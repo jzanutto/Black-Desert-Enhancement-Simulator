@@ -17,7 +17,7 @@ An enhancement simulator created using HTML, CSS, and jQuery.
 The site uses 'Marcellus' as a font so browser font may differ from screenshot.
 
 # Changelog
-[NEW UPDATES 2020][https://github.com/jzanutto/Black-Desert-Enhancement-Simulator/wiki)
+[NEW UPDATES 2020](https://github.com/jzanutto/Black-Desert-Enhancement-Simulator/wiki)
 [See page here.](https://github.com/kodycode/Black-Desert-Enhancement-Simulator/wiki/Changelog)
 
 ## Credits:
