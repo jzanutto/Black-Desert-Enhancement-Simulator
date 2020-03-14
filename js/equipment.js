@@ -96,7 +96,7 @@ function imgdown(img, desc) {
 
     appendObject = '<img class=' + "'" + parentDiv + "'" +
                     ' id="' + removedNum[0] +'"' +
-                    ' ondblclick="transitionItem(this)"' +
+                    ' onclick="transitionItem(this)"' +
                     ' ondrop="return swapTd(event)"' +
                     ' ondragover="return allowDrop(event)"' +
                     ' ondragstart="return drag(event,' + "'" + weaponObject.itemDesc + "'" + ')"' +
@@ -115,7 +115,7 @@ function imgdown(img, desc) {
                     ' ondrop="return swapTd(event)"' +
                     ' ondragover="return allowDrop(event)"' +
                     ' ondragstart="return drag(event,' + "'" + weaponObject.itemDesc + "'" + ')"' +
-                    ' ondblclick="transitionItem(this)"' +
+                    ' onclick="transitionItem(this)"' +
                     ' onmousedown="transitionItemRclick(this, event)"' +
                     ' src="' + img.src + '"' +
                     ' onmouseover="imgoverInventory(this, ' + "'"+ weaponObject.itemDesc + "'" + ')"' +
