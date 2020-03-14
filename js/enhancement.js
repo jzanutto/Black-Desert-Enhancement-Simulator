@@ -264,9 +264,15 @@ function transitionItem(img) {
       //black stone armor positioning
       else
       {
-        $('#design_slot').prepend('<img id="black_stone_armor_temp" src="' + blackStoneArmorPath + '"/>');
-        document.getElementById('black_stone_armor_temp').style.top = (35) + 'px';
-        document.getElementById('black_stone_armor_temp').style.left = (designLeft+53) + 'px';
+        if (weaponEnhanceRank >= 15) {
+          $('#design_slot').prepend('<img id="black_stone_armor_temp" src="img/black_stone/concentrated_magical_black_stone_armor.png"/>');
+          document.getElementById('black_stone_armor_temp').style.top = (35) + 'px';
+          document.getElementById('black_stone_armor_temp').style.left = (designLeft+53) + 'px';
+        } else {
+          $('#design_slot').prepend('<img id="black_stone_armor_temp" src="' + blackStoneArmorPath + '"/>');
+          document.getElementById('black_stone_armor_temp').style.top = (35) + 'px';
+          document.getElementById('black_stone_armor_temp').style.left = (designLeft+53) + 'px';
+        }
       }
     }
   }
